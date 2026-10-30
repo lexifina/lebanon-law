@@ -1,0 +1,10 @@
+{
+  "path": "lb",
+  "code": "LB",
+  "name": "Lebanon",
+  "level": "country",
+  "repo": "https://github.com/lexifina/lebanon-law",
+  "build": "built: Constitution of Lebanon (1926), Arabic text as published by the Constitutional Council (1 version, 1990-09-21)",
+  "register_date": "2026-10-28",
+  "sources": 1
+}

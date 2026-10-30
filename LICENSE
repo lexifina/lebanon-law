@@ -1,0 +1,7 @@
+The legal text comes from the Constitutional Council of Lebanon (https://www.cc.gov.lb), the Constitution, Arabic text, retrieved on 29 October 2026. The Council states no licence for the legal texts. They are official legal texts; their copyright status is not confirmed here, and they are reproduced with the attribution above.
+
+Changes made by Lexifina: the text was converted to one Markdown file per provision, one paragraph per line; spacing, quotes and dashes were normalised; footnotes, running heads and page numbers were removed; and the text was arranged as git commits. The wording of the law was not changed. The Constitutional Council of Lebanon does not endorse this repository.
+
+The codes listed in the README are official legislation published by the Legal Informatics Center of the Lebanese University (https://legiliban.ul.edu.lb), which states no licence for them; they are reproduced with this attribution. The Lebanese University does not endorse this repository.
+
+Lexifina's own contributions (the arrangement of the history, the commit messages, the tables and the tools) are dedicated to the public domain under CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/

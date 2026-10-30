@@ -1,0 +1,61 @@
+{
+ "country": "LB",
+ "acts": [
+  {
+   "slug": "constitution",
+   "short": "Const.",
+   "title": "دستور الجمهورية اللبنانية (The Constitution of Lebanon)",
+   "url": "https://www.cc.gov.lb/ar/%D8%A7%D9%84%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D9%88%D8%A7%D9%84%D9%82%D9%88%D8%A7%D9%86%D9%8A%D9%86/%D8%A7%D9%84%D8%AF%D8%B3%D8%AA%D9%88%D8%B1/",
+   "versions": [
+    {
+     "from": "1990-09-21",
+     "units": 126,
+     "source_url": "https://www.cc.gov.lb/ar/%D8%A7%D9%84%D8%AF%D8%B3%D8%AA%D9%88%D8%B1-%D9%88%D8%A7%D9%84%D9%82%D9%88%D8%A7%D9%86%D9%8A%D9%86/%D8%A7%D9%84%D8%AF%D8%B3%D8%AA%D9%88%D8%B1/",
+     "sha256": "c3b9805a13991b021c355881a36ab6656f1077211743ce55c752cdea60f745e6"
+    }
+   ]
+  },
+  {
+   "slug": "obligations-and-contracts",
+   "short": "COC",
+   "title": "قانون الموجبات والعقود (Code of Obligations and Contracts, law of 9 March 1932)",
+   "url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244226&TYPE=PRINT&language=ar",
+   "versions": [
+    {
+     "from": "2019-07-01",
+     "units": 1350,
+     "source_url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244226&TYPE=PRINT&language=ar",
+     "sha256": "c754cd9b909748a792719e0e6a9e4c24244f5b4bdde2929212a63f6ed5a6e24a"
+    }
+   ]
+  },
+  {
+   "slug": "commerce",
+   "short": "Com.",
+   "title": "قانون التجارة البرية (Land Commerce Code, legislative decree no. 304 of 24 December 1942)",
+   "url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244586&TYPE=PRINT&language=ar",
+   "versions": [
+    {
+     "from": "2019-07-01",
+     "units": 807,
+     "source_url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244586&TYPE=PRINT&language=ar",
+     "sha256": "39384b08d6525cc92f17dedfe8162406022f85cc0aa23460cb0124378908fa88"
+    }
+   ]
+  },
+  {
+   "slug": "penal-code",
+   "short": "Pen.",
+   "title": "قانون العقوبات (Penal Code, legislative decree no. 340 of 1 March 1943)",
+   "url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244611&TYPE=PRINT&language=ar",
+   "versions": [
+    {
+     "from": "2022-01-13",
+     "units": 1056,
+     "source_url": "https://legiliban.ul.edu.lb/LawView.aspx?opt=&LawID=244611&TYPE=PRINT&language=ar",
+     "sha256": "07c6a2aef6055a8ed66fe88a6bfc8159857469412866f441a74d4cc091f89000"
+    }
+   ]
+  }
+ ]
+}
