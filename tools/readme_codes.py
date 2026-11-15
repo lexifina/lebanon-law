@@ -26,7 +26,9 @@ k = s.index("Language: Arabic")
 k2 = s.index("\n", k) + 1
 s = s[:k2] + "\n" + '\n\n'.join(SRC[w] for w in want) + "\n" + s[k2:]
 s = s.replace("- Every other Lebanese law.", "- Every other Lebanese law, and the text of the laws that amended the codes.")
-(R / 'README.md').write_text(s, encoding='utf-8', newline='')
+# Since 2026-11-14 the README is on the serbia-law model, written by hand: it is left as it is.
+if '## Questions as git commands' not in (R / 'README.md').read_text(encoding='utf-8'):
+    (R / 'README.md').write_text(s, encoding='utf-8', newline='')
 lic = (H / 'LICENSE.base.txt').read_text(encoding='utf-8')
 lic = lic.replace("Lexifina's own contributions", "The codes listed in the README are official legislation published by the Legal Informatics Center of the Lebanese University (https://legiliban.ul.edu.lb), which states no licence for them; they are reproduced with this attribution. The Lebanese University does not endorse this repository.\n\nLexifina's own contributions", 1)
 (R / 'LICENSE').write_text(lic, encoding='utf-8', newline='')
