@@ -1,54 +1,87 @@
 # Lebanon: law history in git
 
+
+The law of Lebanon as a git history: one file per provision, one commit per version on the day it took effect, and the act that made each change as the commit's author. `git blame` names the act behind every article; `git log` lists every change to an article; picking a date gives the text in force that day.
+
 Part of [lexifina/global-law](https://github.com/lexifina/global-law), one git history for every country's law: this is Lebanon's national law, which global-law reads at `lebanon/national/acts/`.
 
-The law of Lebanon as a git history. Each provision is one file, each law gets one commit on the day it took effect, and the law that made each change is the commit's author. `git blame` names the law behind every paragraph and `git log` lists every change to an article.
+**What is in it now:** the Constitution (102 articles) and three codes, each in one version: the Code of Obligations and Contracts (1,106 articles), the Land Commerce Code (711 articles, 44 of them added as bis) and the Penal Code (786 articles, 14 of them added later); with the preamble and headings, 3,339 provisions. No other law, regulation, treaty or court decision is here yet. Each act's `README.md` lists its provisions ([`constitution/README.md`](constitution/README.md)); [`REPRODUCE.md`](REPRODUCE.md) says how the files were made.
 
-It follows the shared design of [lexifina/global-law](https://github.com/lexifina/global-law), which places it at `lb/`.
+Each act is a folder with one file per provision: `constitution/art-001.md` is Article 1 (المادة 1) of the Constitution; the other acts are `obligations-and-contracts/`, `commerce/` and `penal-code/`.
 
-This is a first build: the Constitution and core codes, each as one version, the oldest version available.
+The text is in Arabic, the official language (Constitution, art. 11), as the sources print it; the French text printed beside each article of the codes is not kept. An English translation is not part of this record.
 
-## What is in it now
+## Questions as git commands
 
-| Folder | Act | Versions | History |
-| --- | --- | ---: | --- |
-| `constitution/` | Constitution of Lebanon (دستور الجمهورية اللبنانية), 102 articles, preamble and headings | 1 | Current text as published by the Constitutional Council, dated 21 September 1990 (latest amendment its notes name); earlier versions are not in the record |
-| `obligations-and-contracts/` | Code of Obligations and Contracts (قانون الموجبات والعقود, law of 9 March 1932), articles 1 to 1107 and headings | 1 | The oldest version available: the Lebanese University text with its amending-law notes, dated 1 July 2019, when Law no. 126 of 29 March 2019 (the latest amendment it names) took effect |
-| `commerce/` | Land Commerce Code (قانون التجارة البرية, legislative decree no. 304 of 24 December 1942), articles 1 to 667 with the articles added as bis, and headings | 1 | The oldest version available: the Lebanese University text with its amending-law notes, dated 1 July 2019, when Law no. 126 of 29 March 2019 took effect |
-| `penal-code/` | Penal Code (قانون العقوبات, legislative decree no. 340 of 1 March 1943) | 1 | The oldest version available |
+| Question | Command |
+| --- | --- |
+| Every change to Article 1 of the Constitution | `git log -p --word-diff -- constitution/art-001.md` |
+| Which act wrote each line of Article 1? | `git blame constitution/art-001.md` |
+| Every version of the Constitution, with the day each took effect | `git log --format="%h %(trailers:key=In-force,valueonly,separator=) %an" -- constitution ":^constitution/README.md"` |
+| Article 1 as in force on 1 January 2026 | `python tools/on.py 2026-01-01 constitution art-001` |
 
-## Where the text comes from
+**Outside git**, we also host this record publicly, for free:
 
-The text is the Constitution of Lebanon as published by the Constitutional Council of Lebanon (المجلس الدستوري, cc.gov.lb), one web page per Part, retrieved on 29 October 2026. Before each amended article the Council's text names the constitutional law that amended it (for example the Constitutional Law of 21 September 1990); those notes are kept as the first lines of the article file.
+- **[Ask Claude about Lebanese law](https://global-law.lexifina.com/v1/try_claude?country=lebanon)**: opens Claude with a first question ready.
+- **[Ask ChatGPT](https://global-law.lexifina.com/v1/try_chatgpt?country=lebanon)**: the same question in ChatGPT.
+- **[Call the API in your browser](https://global-law.lexifina.com/v1/search_law?query=%D8%B9%D9%82%D8%AF+%D8%A7%D9%84%D8%A8%D9%8A%D8%B9&jurisdictions=lebanon)**: a search of Lebanese law for "عقد البيع" (contract of sale), returned as JSON. See the [documentation here](https://lexifina.com/api/global-law).
 
-Language: Arabic, the language of the Constitution (art. 11). The Council also offers a French page; this record uses the Arabic only.
+Both assistants read the record through the free Global law connector (MCP, `https://global-law.lexifina.com/mcp`); the first time, the chat gives you the link that adds it. Ask in Arabic or in English.
 
-Code of Obligations and Contracts: the Legal Informatics Center of the Lebanese University (المركز اللبناني للمعلوماتية القانونية, legiliban.ul.edu.lb), the whole law as one print page, retrieved on 30 October 2026. Each article is printed in Arabic and in French; this record keeps the Arabic only. A note after the article number names the law that amended it.
+**Host it yourself easily.** All it takes is git and Python, and the tools run on your machine:
 
-Land Commerce Code: the same Center, the whole law as one print page, retrieved on 30 October 2026, Arabic text only.
+```sh
+git clone --depth 1 https://github.com/lexifina/global-law && cd global-law
+python3 tools/countries.py add lebanon/national/acts
+python3 tools/law.py show 2026-01-01 lebanon/national/acts/constitution/art-001.md
+```
 
-Penal Code: the Center's text.
-
-## Not included yet
-
-- Earlier versions of the Constitution and the text of each amending constitutional law.
-- Amendments the Council's notes do not name (for example the 2004 amendment of art. 49), if its text does not reflect them.
-- Every other Lebanese law, and the text of the laws that amended the codes.
+Opened in Claude Code, Cursor, VS Code or Codex, the clone also starts a local MCP server with the same tools ([MCP.md](https://github.com/lexifina/global-law/blob/main/MCP.md)).
 
 ## Dates
 
-The single version is dated 21 September 1990, the latest amendment named in the Council's notes (the Constitutional Law that put the Taif Agreement into the Constitution). The 1926 Constitution was promulgated on 23 May 1926. The record has no older text, so the commit is authored by the publisher as "oldest version available" and dated noon, Asia/Beirut, on that day.
+Each commit is dated at noon, Asia/Beirut, on the day the version took effect, and carries it in its `In-force:` trailer. Each act has one version, dated by the latest amendment its source names:
+
+- the Constitution, 21 September 1990, the Constitutional Law that wrote the Taif Agreement into it (the Constitution was promulgated on 23 May 1926);
+- the Code of Obligations and Contracts (1932) and the Land Commerce Code (1942), 1 July 2019, the day Law no. 126 of 29 March 2019 took effect (Official Gazette no. 18 of 1 April 2019, in force three months later);
+- the Penal Code (1943), 13 January 2022, the Official Gazette date of Laws no. 256, 267 and 268 of 5 January 2022, taken to be in force on publication (not checked).
+
+No version is credited to a law yet. Each is the "oldest version available", credited to its publisher, the Constitutional Council or the Lebanese University's Legal Informatics Center (`Kind: publisher`). The committer is Lexifina.
 
 ## How it is checked
 
-Every version is read back from git on the day it took effect and on the day before; both must match the corpus the repository was built from. The results are in `REPRODUCE.md`.
+- `tools/check_repo.py` reads every version back from git on the day it took effect and on the day before and compares it with the corpus, whose hash is in `data/corpus.sha256`; it also checks that every commit's trailers parse, that `main` has no merge commits and that no commit is dated in the future.
+- `tools/build.py` writes the history from that one corpus file, and the same corpus gives the same commit hashes. [`REPRODUCE.md`](REPRODUCE.md) records that the checks were not yet run for this build and that no second build has been compared.
+- `data/versions.json` gives each version's source address and sha256.
 
-## How it is built
+## What it does not show
 
-Lexifina reads the sources listed here and records each act's dated versions, and the laws that made each change, in one corpus file. `tools/build.py` writes this repository from that file, and the same corpus always gives the same commit hashes; `REPRODUCE.md` gives the details and the checks. A model (Claude) wrote Lexifina's code; it wrote no legal text, and no model runs when the history is built.
+- **Amendment history.** Each act is one consolidated text, so the amendments made since 1926, 1932, 1942 and 1943 are in it but not as commits of their own, and no earlier text is here.
+- **The amending laws' own texts**, and any amendment the Council's notes do not name (such as the 2004 amendment of art. 49) that its text does not reflect.
+- **The French text** of the Constitution and the codes.
+- **Gaps in the source.** Article 1106 of the Code of Obligations and Contracts is not in the Lebanese University's text and has no file; article 335 of the Penal Code is printed there twice with different texts, and both are kept.
+- **Every other Lebanese law**, regulations, treaties and case law. None yet.
 
-Lexifina reads the sources listed here and records each act's dated versions, and the laws that made each change, in one corpus file.
+## Sources
 
-## What "author" means
+| Source | Kind | Past versions | Notes |
+| --- | --- | --- | --- |
+| [Constitutional Council of Lebanon](https://www.cc.gov.lb) (المجلس الدستوري) | Official site: the Constitution, in Arabic | no, the current text | With notes naming each amending constitutional law; read on 29 October 2026 |
+| [Legal Informatics Center of the Lebanese University](https://legiliban.ul.edu.lb) (المركز اللبناني للمعلوماتية القانونية) | The three codes, in Arabic and French | no, one consolidated text | With notes naming each amending law; Arabic kept; read on 30 October 2026 |
 
-The author of a commit is the law that made the change. Its e-mail address cannot exist, so `git blame` and `git log --author` name laws. A version with no law of its own (the oldest version available) is authored by the publisher and says so. The committer is always Lexifina.
+## Licence
+
+See [`LICENSE`](LICENSE). Neither the Constitutional Council nor the Lebanese University states a licence for the legal texts; they are reproduced with attribution, their copyright status is not confirmed, and neither endorses this repository. Lexifina's history, commit messages, tables and tools are CC0 1.0.
+
+No AI model wrote, translated or corrected legal text; the scripts were written by an AI model (see [`REPRODUCE.md`](REPRODUCE.md)).
+
+## More
+
+From [lexifina/global-law](https://github.com/lexifina/global-law):
+
+- [FEATURES.md](https://github.com/lexifina/global-law/blob/main/FEATURES.md): every feature, and what every corpus must support (`git blame`, `law.py`, the MCP tools)
+- [FAQ.md](https://github.com/lexifina/global-law/blob/main/FAQ.md): questions and answers · [CONTRIBUTING.md](https://github.com/lexifina/global-law/blob/main/CONTRIBUTING.md): proposing changes · [MCP.md](https://github.com/lexifina/global-law/blob/main/MCP.md): the MCP server · [REPRODUCE.md](https://github.com/lexifina/global-law/blob/main/REPRODUCE.md): how it was built · [CHANGELOG.md](https://github.com/lexifina/global-law/blob/main/CHANGELOG.md)
+- [FRESHNESS.md](https://github.com/lexifina/global-law/blob/main/FRESHNESS.md): how current each corpus is · [Monitoring](https://github.com/lexifina/global-law/tree/main/monitoring): whether updates are running · [WATCHING.md](https://github.com/lexifina/global-law/blob/main/WATCHING.md): how each official source is watched for changes
+- [performance/](https://github.com/lexifina/global-law/tree/main/performance): how fast the tools are, measured
+- [visualisations/](https://github.com/lexifina/global-law/tree/main/visualisations): charts and bridges across the world's law
+- [Vulnerabilities](https://github.com/lexifina/global-law/tree/main/vulnerabilities): mistakes in legislation as published
